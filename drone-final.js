@@ -225,14 +225,12 @@ const oe = new qe(15, window.innerWidth / window.innerHeight, 0.1, 1e3);
 oe.position.set(-23.705, 16.498, -19.656);
 oe.lookAt(0.6, 0.98, 0);
 
-// Injeção limpa no seu canvas do Webflow
 let Y = document.getElementById("connect-drone");
 if (Y) {
     Y.innerHTML = "";
     Y.appendChild(x.domElement);
 }
 
-// Ocultando avisos indesejados do GSAP passando Array ao invés de String
 F.set(document.querySelectorAll("#hero-section .clip-char"), { yPercent: 110 });
 F.set(document.querySelectorAll(".benefit-card .clip-char"), { yPercent: 110 });
 
@@ -253,9 +251,6 @@ Qe(); S.add(I);
 const $ = new ut(16777215, 0, 50);
 $.position.set(0, 3, 5); S.add($);
 
-// 🔴 LINKS CORRIGIDOS E BLINDADOS 🔴
-// O HDR e o Apollo agora puxam do seu repositório "icarus" original (onde sei que existem!)
-// As 3 imagens de fundo vão puxar da "raiz" do novo repositório icarus-connect
 const Ot = "https://cdn.jsdelivr.net/gh/augustondreis/icarus@main/green-512.hdr";
 const _t = "https://cdn.jsdelivr.net/gh/augustondreis/icarus@main/apollo-draco.glb";
 const Wt = "https://cdn.jsdelivr.net/gh/augustondreis/icarus-connect@main/vienna-mountains.webp";
