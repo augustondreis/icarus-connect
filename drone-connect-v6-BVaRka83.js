@@ -256,3 +256,470 @@ if (!ne) {
         i.split("").forEach(o => {
             if (o === " ") n.appendChild(document.createTextNode(" "));
             else {
+                const e = document.createElement("span"); e.className = "clip-wrap";
+                const r = document.createElement("span"); r.className = "clip-char";
+                r.textContent = o; e.appendChild(r); n.appendChild(e);
+            }
+        });
+        t.appendChild(n);
+    });
+    ne.appendChild(t); document.body.appendChild(ne);
+}
+F.set("#hero-section .clip-char", { yPercent: 110 });
+
+let ie = document.getElementById("scroll-spacer");
+if (!ie) {
+    ie = document.createElement("div"); ie.id = "scroll-spacer";
+    ie.style.cssText = "position: relative; z-index: -1; height: 666vh; pointer-events: none;";
+    document.body.appendChild(ie);
+}
+
+let X = document.getElementById("benefits-row");
+if (!X) {
+    X = document.createElement("div"); X.id = "benefits-row";
+    const t = document.createElement("div"); t.className = "benefits-cards"; X.appendChild(t);
+    [{ title: "Latency", desc: "Apollo delivers high speed data with latency between 5 and 10 ms, ideal for tactical applications that require a real time link between detection and action." }, { title: "Coverage duration", desc: "Our platform provides a 24/7 fixed presence over the mission area, ensuring that the chain of custody is never broken." }, { title: "Coverage area", desc: "Apollo delivers dedicated monitoring over a 7,500 km² area, allowing for regional oversight with an unparalleled level of resolution." }].forEach(n => {
+        const o = document.createElement("div"); o.className = "benefit-card";
+        const e = document.createElement("div"); e.className = "benefit-title";
+        n.title.split("").forEach(s => {
+            if (s === " ") e.appendChild(document.createTextNode(" "));
+            else {
+                const a = document.createElement("span"); a.className = "clip-wrap";
+                const c = document.createElement("span"); c.className = "clip-char";
+                c.textContent = s; a.appendChild(c); e.appendChild(a);
+            }
+        });
+        const r = document.createElement("div"); r.className = "benefit-desc"; r.textContent = n.desc;
+        o.appendChild(e); o.appendChild(r); t.appendChild(o);
+    });
+    document.body.appendChild(X);
+}
+
+let Z = document.getElementById("benefits-row-2");
+if (!Z) {
+    Z = document.createElement("div"); Z.id = "benefits-row-2";
+    const t = document.createElement("div"); t.className = "benefits-cards"; Z.appendChild(t);
+    [{ title: "High bandwidth", desc: "Our system supports high bandwidth signals delivered direct to device for phones and radios, simplifying the communications log in remote or contested environments." }, { title: "Vehicle life", desc: "Apollo is designed to be fully reusable, ensuring long vehicle life and allowing rapid hardware updates and sensor swaps to keep the platform at the cutting edge." }, { title: "Altitude", desc: "Apollo sits at 20 km, well above commercial weather and standard atmospheric turbulence; the ideal environment for consistent sensor performance and optimal signal propagation." }].forEach(n => {
+        const o = document.createElement("div"); o.className = "benefit-card";
+        const e = document.createElement("div"); e.className = "benefit-title";
+        n.title.split("").forEach(s => {
+            if (s === " ") e.appendChild(document.createTextNode(" "));
+            else {
+                const a = document.createElement("span"); a.className = "clip-wrap";
+                const c = document.createElement("span"); c.className = "clip-char";
+                c.textContent = s; a.appendChild(c); e.appendChild(a);
+            }
+        });
+        const r = document.createElement("div"); r.className = "benefit-desc"; r.textContent = n.desc;
+        o.appendChild(e); o.appendChild(r); t.appendChild(o);
+    });
+    document.body.appendChild(Z);
+}
+F.set(".benefit-card .clip-char", { yPercent: 110 });
+
+let q = document.getElementById("scroll-divider");
+if (!q) {
+    q = document.createElement("div"); q.id = "scroll-divider";
+    const t = document.createElement("div"); t.id = "scroll-progress";
+    q.appendChild(t); document.body.appendChild(q);
+}
+
+const j = new Rt(C, x.domElement);
+j.target.set(0.6, 0.98, 0); j.enableDamping = true; j.dampingFactor = 0.05; j.enableZoom = false; j.update();
+let $e = false;
+x.domElement.addEventListener("pointerdown", () => { $e = true; });
+
+const de = new mt(9351106, 5785656, 0.8);
+S.add(de);
+const I = new ht(6061741, 0);
+let pe = 219.2 * Math.PI / 180, U = 79.9 * Math.PI / 180;
+const ke = 5.4;
+
+function Qe() { I.position.set(ke * Math.sin(U) * Math.cos(pe), ke * Math.cos(U), ke * Math.sin(U) * Math.sin(pe)); }
+Qe(); S.add(I);
+
+const $ = new ut(16777215, 0, 50);
+$.position.set(0, 3, 5); S.add($);
+
+const Re = "/", Se = Re.endsWith("/") ? Re : `${Re}/`;
+const Ot = new URL(`${Se}env/green-512.hdr`, window.location.href).toString();
+const _t = new URL(`${Se}models/apollo-draco.glb`, window.location.href).toString();
+const Wt = new URL(`${Se}bg/vienna-mountains.webp`, window.location.href).toString();
+const Te = { extraScale: 16, rotation: new be(-Math.PI / 2, 0, 0) };
+
+const et = new gt(x);
+et.compileEquirectangularShader();
+const Nt = new kt();
+Nt.load(Ot, t => {
+    t.mapping = yt;
+    const i = et.fromEquirectangular(t).texture;
+    S.environment = i;
+    S.environmentRotation = new be(-1070 * Math.PI / 180, 1960 * Math.PI / 180, 0);
+    t.dispose();
+});
+
+new Le().load(Wt, t => {
+    t.minFilter = D; t.magFilter = D; t.generateMipmaps = false; t.wrapS = te; t.wrapT = te;
+    N.uniforms.tImage.value = t;
+    N.uniforms.uImageAspect.value = t.image.width / t.image.height;
+});
+
+const Ht = new URL(`${Se}bg/night.jpg`, window.location.href).toString();
+new Le().load(Ht, t => {
+    t.minFilter = D; t.magFilter = D; t.generateMipmaps = false; t.wrapS = te; t.wrapT = te;
+    N.uniforms.tNightImage.value = t;
+});
+
+const B = document.createElement("button");
+B.id = "night-upload-btn";
+B.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Upload night image';
+document.body.appendChild(B);
+
+const G = document.createElement("input");
+G.type = "file"; G.accept = "image/*"; G.style.display = "none";
+document.body.appendChild(G);
+
+B.addEventListener("click", () => G.click());
+G.addEventListener("change", () => {
+    const t = G.files[0]; if (!t) return;
+    B.classList.add("loading");
+    B.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Loading…';
+    const i = new FileReader();
+    i.onload = n => {
+        const o = new Image();
+        o.onload = () => {
+            const e = new vt(o);
+            e.minFilter = D; e.magFilter = D; e.generateMipmaps = false; e.wrapS = te; e.wrapT = te; e.needsUpdate = true;
+            const r = N.uniforms.tNightImage.value;
+            N.uniforms.tNightImage.value = e;
+            if (r) r.dispose();
+            B.classList.remove("loading");
+            B.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Upload night image';
+        };
+        o.src = n.target.result;
+    };
+    i.readAsDataURL(t);
+    G.value = "";
+});
+
+const Ut = 0.7, Bt = 0.25, ve = new wt();
+S.add(ve);
+const ze = [], Gt = new Le();
+const Vt = "varying vec2 vUv;\nvoid main() {\n  vUv = uv;\n  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);\n}";
+const jt = "uniform sampler2D tCloud;\nuniform float uOpacity;\nuniform float uEdgeFade;\nvarying vec2 vUv;\nvoid main() {\n  vec4 tex = texture2D(tCloud, vUv);\n  float fadeL = smoothstep(0.0, uEdgeFade, vUv.x);\n  float fadeR = smoothstep(0.0, uEdgeFade, 1.0 - vUv.x);\n  float fadeB = smoothstep(0.0, uEdgeFade, vUv.y);\n  float fadeT = smoothstep(0.0, uEdgeFade, 1.0 - vUv.y);\n  float edge = fadeL * fadeR * fadeB * fadeT;\n  gl_FragColor = vec4(tex.rgb, tex.a * uOpacity * edge);\n}";
+
+function qt(t, i, n, o, e, r) {
+    Gt.load(t, s => {
+        s.colorSpace = xe;
+        const a = new Ye({ uniforms: { tCloud: { value: s }, uOpacity: { value: 0.85 }, uEdgeFade: { value: Bt } }, vertexShader: Vt, fragmentShader: jt, transparent: true, depthWrite: false, side: se });
+        const c = new bt(e, r), l = new Ke(c, a);
+        l.position.set(i, n, o); ve.add(l); ze.push(l);
+    });
+}
+qt("/bg/cloud03-7.webp", -12, -4, -8, 28, 14);
+
+const Yt = new z(19.28, 16.29, 25.2);
+const tt = new Et();
+tt.setDecoderPath("https://www.gstatic.com/draco/versioned/decoders/1.5.7/");
+const ot = new Ft();
+ot.setDRACOLoader(tt);
+
+const ae = [{ cam: new z(19.28, 16.29, 25.2), tgt: new z(0.6, 0.98, 0) }, { cam: new z(24.92, 12.85, 22.04), tgt: new z(0.6, 0.98, 0) }];
+let ce = 0, W = 0;
+const We = new z(), Ne = new z(), He = new z();
+
+function Kt(t) {
+    const i = Math.max(0, Math.min(1, t)), n = ae.length - 1, o = i * n, e = Math.min(Math.floor(o), n - 1), r = o - e;
+    return We.copy(ae[e].cam).lerp(ae[e + 1].cam, r), Ne.copy(ae[e].tgt).lerp(ae[e + 1].tgt, r), { pos: We, tgt: Ne };
+}
+
+ot.load(_t, t => {
+    const i = t.scene; i.position.set(0, 0, 0); i.rotation.set(0, 0, 0);
+    const n = new xt().setFromObject(i), o = new z(), e = new z();
+    n.getSize(o); n.getCenter(e);
+    const r = Math.max(o.x, o.y, o.z);
+    if (isFinite(r) && r > 0) { const v = 1.4 / r; i.scale.setScalar(v); i.position.sub(e.multiplyScalar(v)); } 
+    else i.scale.setScalar(1);
+    
+    i.rotation.copy(Te.rotation); i.scale.multiplyScalar(Te.extraScale);
+    he.copy(i.position); ue.copy(i.rotation); V._baseScalar = i.scale.x; i.updateMatrixWorld(true);
+    
+    const s = [];
+    i.traverse(l => { if (l.isMesh) s.push(l); });
+    for (const l of s) {
+        if (l.geometry && !l.geometry.attributes.normal) l.geometry.computeVertexNormals();
+        l.material = me.carbonMatte; l.castShadow = true; l.receiveShadow = true;
+    }
+    const a = new Set(["mesh73", "mesh100", "mesh76", "mesh103"]);
+    for (const l of s) { if (a.has(l.name)) l.material = me.solarPanel; }
+    
+    S.add(i); i.updateMatrixWorld(true);
+    for (const l of s) { let v = Dt.matte; if (l.material === me.solarPanel) v = Lt; It(l, v); }
+    
+    const c = new Set(["mesh159", "mesh160", "mesh161", "mesh162", "mesh163", "mesh164", "mesh165", "mesh166", "mesh167", "mesh168", "mesh169", "mesh170", "mesh171", "mesh172", "mesh173", "mesh174", "mesh175", "mesh176", "mesh177", "mesh178", "mesh179", "mesh180", "mesh181", "mesh182", "mesh183", "mesh184"]);
+    for (const l of s) { if (c.has(l.name)) l.material = me.carbonMatte; }
+    A = i;
+});
+
+const nt = 0, it = 0.08, at = (1 + nt) / 2 - it, rt = at + it, Xt = rt;
+const re = { val: false, cardRevealed: [false, false, false] };
+const Zt = { val: false, cardRevealed: [false, false, false] };
+
+function ge(t) {
+    t.style.opacity = 1;
+    const i = t.querySelectorAll(".clip-char");
+    F.to(i, { yPercent: 0, duration: 0.7, stagger: 0.03, ease: "power3.out" });
+    const n = t.querySelector(".benefit-desc");
+    if (n) F.to(n, { opacity: 1, duration: 1, ease: "power2.out", delay: 0.2 });
+}
+
+function st(t) {
+    t.style.opacity = 0;
+    const i = t.querySelectorAll(".clip-char");
+    i.forEach(o => { F.killTweensOf(o); });
+    F.set(i, { yPercent: 110 });
+    const n = t.querySelector(".benefit-desc");
+    if (n) { F.killTweensOf(n); n.style.opacity = 0; }
+}
+
+function Ue(t, i, n, o, e, r, s, a) {
+    const c = t.querySelectorAll(".benefit-card");
+    if (n < o) {
+        if (s.val) {
+            s.val = false; s.cardRevealed = [false, false, false];
+            F.to(t, { opacity: 0, duration: 0.5, ease: "power2.out", onComplete: () => { c.forEach(l => st(l)); } });
+        }
+    } else if (!a && n >= e && n < r) {
+        F.killTweensOf(t); t.style.opacity = 1 - (n - e) / (r - e);
+    } else if (!a && n >= r) {
+        t.style.opacity = 0;
+    } else if (parseFloat(t.style.opacity) < 1 && s.val) {
+        F.killTweensOf(t); t.style.opacity = 1;
+    }
+    
+    if (n >= o && !s.val) {
+        s.val = true; F.killTweensOf(t);
+        c.forEach(l => { l.style.opacity = 0; });
+        t.style.opacity = 1; s.cardRevealed[0] = true; ge(c[0]);
+    }
+    
+    if (s.val) {
+        const v = (a ? 1 : e) - o, k = v > 0 ? Math.max(0, Math.min(1, (n - o) / v)) : 0;
+        if (k >= 0.33 && !s.cardRevealed[1]) { s.cardRevealed[1] = true; ge(c[1]); }
+        if (k >= 0.66 && !s.cardRevealed[2]) { s.cardRevealed[2] = true; ge(c[2]); }
+    }
+}
+
+const Jt = 0.08, Pe = 0.05;
+let K = false;
+const Qt = 0.1;
+let De = false, Be = null;
+
+window.addEventListener("scroll", () => {
+    De = true;
+    clearTimeout(Be);
+    Be = setTimeout(() => { De = false; }, 150);
+    $e = false;
+    
+    const tr = document.getElementById("connect-track");
+    if (tr) {
+        const rect = tr.getBoundingClientRect();
+        const dist = tr.offsetHeight - window.innerHeight;
+        ce = dist > 0 ? Math.max(0, Math.min(1, -rect.top / dist)) : 0;
+    } else {
+        const t = document.documentElement.scrollHeight - window.innerHeight;
+        ce = t > 0 ? Math.min(1, window.scrollY / t) : 0;
+    }
+
+    const i = Math.min(1, ce / Pe);
+    
+    if (i >= 1 && !K) {
+        K = true;
+        F.to("#hero-section .clip-char", { yPercent: 0, duration: 0.7, stagger: 0.03, ease: "power3.out" });
+        F.to("#scroll-divider", { opacity: 1, duration: 0.6, ease: "power2.out" });
+        const n = document.getElementById("benefits-row");
+        if (n) { n.style.opacity = 1; re.val = true; re.cardRevealed[0] = true; const o = n.querySelector(".benefit-card"); if (o) ge(o); }
+    }
+    if (i < 1 && K) {
+        K = false;
+        F.killTweensOf("#hero-section .clip-char");
+        F.to("#hero-section .clip-char", { yPercent: 110, duration: 0.4, ease: "power2.in" });
+        if(q) F.to(q, { opacity: 0, duration: 0.4, ease: "power2.in" });
+        re.val = false; re.cardRevealed = [false, false, false];
+        const n = document.getElementById("benefits-row");
+        if (n) F.to(n, { opacity: 0, duration: 0.4, ease: "power2.in", onComplete: () => { n.querySelectorAll(".benefit-card").forEach(o => st(o)); } });
+    }
+    if (K) {
+        const n = Math.max(0, Math.min(1, (ce - Pe) / (1 - Pe)));
+        if (X) Ue(X, "#benefits-row", n, nt, at, rt, re, false);
+        if (Z) Ue(Z, "#benefits-row-2", n, Xt, 0, 0, Zt, true);
+    }
+    if (K && q) {
+        q.style.opacity = 1;
+        const n = document.getElementById("scroll-progress");
+        if (n) n.style.width = `${Math.min(1, ce) * 100}%`;
+    }
+});
+
+window.addEventListener("resize", () => {
+    C.aspect = window.innerWidth / window.innerHeight; C.updateProjectionMatrix();
+    oe.aspect = window.innerWidth / window.innerHeight; oe.updateProjectionMatrix();
+    x.setSize(window.innerWidth, window.innerHeight); x.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+});
+
+{
+    let t = function () {
+        const s = Math.sin(o) * Math.cos(e), a = Math.sin(e), c = Math.cos(o) * Math.cos(e);
+        N.uniforms.uCenterDir.value.set(s, a, c);
+    };
+    let i = function () {
+        const s = N.uniforms.uCenterDir.value, a = (r * 180 / Math.PI).toFixed(0);
+        console.log(`%c BG dome: centerDir=(${s.x.toFixed(3)}, ${s.y.toFixed(3)}, ${s.z.toFixed(3)})  hFov=${a}°  theta=${o.toFixed(3)}  phi=${e.toFixed(3)}`, "background: #222; color: #0f0; padding: 4px 8px; font-size: 13px;");
+    };
+    var o = -2.42, e = -0.35, r = Xe;
+    t();
+    window.addEventListener("keydown", s => {
+        const a = s.key.toLowerCase(); let c = false;
+        if (a === "r") { r = Math.max(0.3, r - 0.05); c = true; }
+        if (a === "e") { r = Math.min(Math.PI * 2, r + 0.05); c = true; }
+        if (c) { e = Math.max(-Math.PI / 2 + 0.01, Math.min(Math.PI / 2 - 0.01, e)); t(); N.uniforms.uHFov.value = r; i(); }
+    });
+}
+
+const H = { x: 0.5, y: 0, z: -3.5 }, Ie = { x: -2.5, y: 0, z: -4.5 }, T = { x: H.x, y: H.y, z: H.z }, we = { value: 0 }, V = { value: 0.5 };
+
+function Ge() {
+    const t = C.position, i = j.target, n = S.environmentRotation;
+    if (A) { A.position; A.rotation; A.scale.x / (Te.extraScale * (1.4 / 10)); }
+    console.log(`\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n  Camera pos:     (${t.x.toFixed(2)}, ${t.y.toFixed(2)}, ${t.z.toFixed(2)})\n  Look-at:        (${i.x.toFixed(2)}, ${i.y.toFixed(2)}, ${i.z.toFixed(2)})\n  Env rot:        (${Math.round(n.x * 180 / Math.PI)}°, ${Math.round(n.y * 180 / Math.PI)}°)\n  Exposure:       ${x.toneMappingExposure.toFixed(2)}\n  FOV:            ${C.fov.toFixed(1)}\n  Drone offset:   (${T.x.toFixed(2)}, ${T.y.toFixed(2)}, ${T.z.toFixed(2)})\n  Drone rotY:     ${(we.value * 180 / Math.PI).toFixed(1)}°\n  Drone scale:    ${V.value.toFixed(2)}x\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`);
+}
+
+window.addEventListener("keydown", t => {
+    if (t.key === "p") { Ge(); return; }
+    const i = t.shiftKey ? 0.1 : 0.5, o = (t.shiftKey ? 1 : 10) * Math.PI / 180;
+    let e = false;
+    if (t.key === "a" || t.key === "A") { T.x -= i; e = true; }
+    if (t.key === "d" || t.key === "D") { T.x += i; e = true; }
+    if (t.key === "w" || t.key === "W") { T.z -= i; e = true; }
+    if (t.key === "s" || t.key === "S") { T.z += i; e = true; }
+    if (t.key === "q" || t.key === "Q") { T.y += i; e = true; }
+    if (t.key === "z" || t.key === "Z") { T.y -= i; e = true; }
+    if (t.key === "ArrowLeft") { S.environmentRotation.y -= o; e = true; }
+    if (t.key === "ArrowRight") { S.environmentRotation.y += o; e = true; }
+    if (t.key === "ArrowUp") { S.environmentRotation.x -= o; e = true; }
+    if (t.key === "ArrowDown") { S.environmentRotation.x += o; e = true; }
+    if (t.key === "[") { we.value -= 0.05; e = true; }
+    if (t.key === "]") { we.value += 0.05; e = true; }
+    if (t.key === "-") { V.value = Math.max(0.1, V.value - 0.1); e = true; }
+    if (t.key === "=" || t.key === "+") { V.value += 0.1; e = true; }
+    if (t.key === "c") { C.fov += t.shiftKey ? 0.5 : 1; C.updateProjectionMatrix(); e = true; }
+    if (t.key === "v") { C.fov -= t.shiftKey ? 0.5 : 1; C.updateProjectionMatrix(); e = true; }
+    
+    let r = false; const s = t.shiftKey ? 0.005 : 0.03;
+    if (t.key === "j" || t.key === "J") { pe -= s; r = true; }
+    if (t.key === "l" || t.key === "L") { pe += s; r = true; }
+    if (t.key === "i" || t.key === "I") { U = Math.max(0.1, U - s); r = true; }
+    if (t.key === "k" || t.key === "K") { U = Math.min(Math.PI - 0.1, U + s); r = true; }
+    
+    if (r) {
+        Qe(); const a = I.position;
+        console.log(`%c NIGHT LIGHT  θ=${(pe * 180 / Math.PI).toFixed(1)}°  φ=${(U * 180 / Math.PI).toFixed(1)}°  pos=(${a.x.toFixed(2)}, ${a.y.toFixed(2)}, ${a.z.toFixed(2)})`, "color: #A0B4CF; font-weight: bold");
+        e = true;
+    }
+    
+    if (e) {
+        if (t.key.startsWith("Arrow")) {
+            const a = S.environmentRotation;
+            console.log(`%c HDR env rotation: X=${Math.round(a.x * 180 / Math.PI)}°  Y=${Math.round(a.y * 180 / Math.PI)}°`, "color: #f0a; font-weight: bold");
+        }
+        Ge();
+    }
+});
+
+function Ve() {
+    const t = I.position, i = $.position, n = S.environmentRotation || new be(), o = Math.round(n.x * 180 / Math.PI), e = Math.round(n.y * 180 / Math.PI);
+    console.log(`\n━━━━━━━━━ LIGHTING ━━━━━━━━━\n  HDR env rotation:     X=${o}°  Y=${e}°\n  Env intensity:        ${(S.environmentIntensity ?? 1).toFixed(2)}\n  Hemi intensity:       ${de.intensity.toFixed(2)}\n  Dir light intensity:  ${I.intensity.toFixed(2)}\n  Dir light pos:        (${t.x.toFixed(1)}, ${t.y.toFixed(1)}, ${t.z.toFixed(1)})\n  Point light intensity: ${$.intensity.toFixed(2)}\n  Point light pos:      (${i.x.toFixed(1)}, ${i.y.toFixed(1)}, ${i.z.toFixed(1)})\n  Exposure:             ${x.toneMappingExposure.toFixed(2)}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`);
+}
+
+window.addEventListener("keydown", t => {
+    if (t.altKey || t.ctrlKey || t.metaKey) return;
+    const i = t.key, n = 1; let o = false;
+    if (t.shiftKey) {
+        if (i === "!") { I.position.x -= n; o = true; }
+        if (i === "@") { I.position.x += n; o = true; }
+        if (i === "#") { I.position.y -= n; o = true; }
+        if (i === "$") { I.position.y += n; o = true; }
+        if (i === "%") { I.position.z -= n; o = true; }
+        if (i === "^") { I.position.z += n; o = true; }
+        if (i === "&") { $.position.x -= n; o = true; }
+        if (i === "*") { $.position.x += n; o = true; }
+        if (i === "(") { $.position.y -= n; o = true; }
+        if (i === ")") { $.position.y += n; o = true; }
+    } else {
+        if (i === "1") { de.intensity = Math.max(0, de.intensity - 0.1); o = true; }
+        if (i === "2") { de.intensity += 0.1; o = true; }
+        if (i === "3") { I.intensity = Math.max(0, I.intensity - 0.1); o = true; }
+        if (i === "4") { I.intensity += 0.1; o = true; }
+        if (i === "5") { $.intensity = Math.max(0, $.intensity - 0.1); o = true; }
+        if (i === "6") { $.intensity += 0.1; o = true; }
+        if (i === "7") { x.toneMappingExposure = Math.max(0, x.toneMappingExposure - 0.1); o = true; }
+        if (i === "8") { x.toneMappingExposure += 0.1; o = true; }
+        if (i === "9") { S.environmentIntensity = Math.max(0, (S.environmentIntensity ?? 1) - 0.1); o = true; }
+        if (i === "0") { S.environmentIntensity = (S.environmentIntensity ?? 1) + 0.1; o = true; }
+        if (i === ";") { Ve(); return; }
+    }
+    if (o) Ve();
+});
+
+function lt() {
+    _e.getDelta(); const t = _e.elapsedTime;
+    
+    if (!De) {
+        const e = document.documentElement.scrollHeight - window.innerHeight;
+        if (e > 0 && window.scrollY < e) { const r = e * Qt / 60; window.scrollBy(0, r); }
+    }
+    
+    W += (ce - W) * Jt;
+    
+    if (!$e) {
+        const e = Kt(W);
+        C.position.lerp(e.pos, 0.1); j.target.lerp(e.tgt, 0.1);
+        const r = 15 * (1 - 0.15 * W);
+        C.fov += (r - C.fov) * 0.1; C.updateProjectionMatrix();
+    }
+    
+    He.copy(C.position).sub(Yt).multiplyScalar(Ut); ve.position.copy(He);
+    const i = C.fov / 15; ve.scale.setScalar(i);
+    
+    for (const e of ze) e.lookAt(C.position);
+    
+    oe.quaternion.copy(C.quaternion);
+    T.x = H.x + (Ie.x - H.x) * W; T.y = H.y + (Ie.y - H.y) * W; T.z = H.z + (Ie.z - H.z) * W;
+    
+    if (A) {
+        const e = Pt, r = 2 * Math.PI / e.bobPeriod, s = Math.sin(t * r), a = 2 * Math.PI / e.stallPeriod, c = Math.cos(t * a), l = 1 - e.stallDepth * c * c, v = s * e.bobAmp * l;
+        A.position.set(he.x + T.x, he.y + T.y + v, he.z + T.z);
+        const k = Math.cos(t * r) * l;
+        A.rotation.set(ue.x + k * e.pitchAmp, ue.y + we.value, ue.z);
+        if (V._baseScalar) A.scale.setScalar(V._baseScalar * V.value);
+    }
+    
+    x.domElement.style.filter = ""; j.update();
+    const n = W * W * W;
+    N.uniforms.uNightMix.value = n * 0.7;
+    const o = 0.85 - 0.75 * n;
+    
+    for (const e of ze) e.material.uniforms.uOpacity.value = o;
+    
+    x.toneMappingExposure = 3.2 + (2.4 - 3.2) * n;
+    S.environmentIntensity = 1 - 0.95 * n;
+    I.intensity = 0.15 * n;
+    x.domElement.style.filter = `grayscale(${n * 0.4})`;
+    Me.style.opacity = n * 0.15;
+    
+    x.autoClear = true; x.render(Je, oe);
+    x.autoClear = false; x.render(S, C);
+    x.autoClear = true; requestAnimationFrame(lt);
+}
+
+lt();
