@@ -232,8 +232,6 @@ if (Y) {
     Y.appendChild(x.domElement);
 }
 
-// Oculta inicialmente as letras/textos para que o GSAP as revele na rolagem
-// Lembre-se de adicionar a classe "clip-char" nas letras do Webflow
 F.set("#hero-section .clip-char", { yPercent: 110 });
 F.set(".benefit-card .clip-char", { yPercent: 110 });
 
@@ -254,12 +252,12 @@ Qe(); S.add(I);
 const $ = new ut(16777215, 0, 50);
 $.position.set(0, 3, 5); S.add($);
 
-// Rotas absolutas do seu Githack para evitar bloqueios no Webflow
-const Ot = "https://raw.githack.com/augustondreis/icarus-connect/main/env/green-512.hdr";
-const _t = "https://raw.githack.com/augustondreis/icarus-connect/main/models/apollo-draco.glb";
-const Wt = "https://raw.githack.com/augustondreis/icarus-connect/main/bg/vienna-mountains.webp";
-const Ht = "https://raw.githack.com/augustondreis/icarus-connect/main/bg/night.jpg";
-const cloudUrl = "https://raw.githack.com/augustondreis/icarus-connect/main/bg/cloud03-7.webp";
+// 🔴 LINKS CORRIGIDOS PARA A CDN DO JSDELIVR 🔴
+const Ot = "https://cdn.jsdelivr.net/gh/augustondreis/icarus-connect@main/env/green-512.hdr";
+const _t = "https://cdn.jsdelivr.net/gh/augustondreis/icarus-connect@main/models/apollo-draco.glb";
+const Wt = "https://cdn.jsdelivr.net/gh/augustondreis/icarus-connect@main/bg/vienna-mountains.webp";
+const Ht = "https://cdn.jsdelivr.net/gh/augustondreis/icarus-connect@main/bg/night.jpg";
+const cloudUrl = "https://cdn.jsdelivr.net/gh/augustondreis/icarus-connect@main/bg/cloud03-7.webp";
 
 const Te = { extraScale: 16, rotation: new be(-Math.PI / 2, 0, 0) };
 
@@ -416,7 +414,6 @@ window.addEventListener("scroll", () => {
 
     const i = Math.min(1, ce / Pe);
     
-    // Elementos que o seu Webflow precisa ter para as animações dispararem:
     const X = document.getElementById("benefits-row");
     const Z = document.getElementById("benefits-row-2");
     const q = document.getElementById("scroll-divider");
@@ -564,10 +561,7 @@ window.addEventListener("keydown", t => {
 function lt() {
     _e.getDelta(); const t = _e.elapsedTime;
     
-    if (!De) {
-        const e = document.documentElement.scrollHeight - window.innerHeight;
-        if (e > 0 && window.scrollY < e) { const r = e * Qt / 60; window.scrollBy(0, r); }
-    }
+    // BLOCO DE AUTO-SCROLL REMOVIDO DAQUI
     
     W += (ce - W) * Jt;
     
@@ -606,7 +600,6 @@ function lt() {
     I.intensity = 0.15 * n;
     x.domElement.style.filter = `grayscale(${n * 0.4})`;
     
-    // Anima a div night-tint se ela existir no seu Webflow
     let Me = document.getElementById("night-tint");
     if (Me) Me.style.opacity = n * 0.15;
     
