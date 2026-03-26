@@ -225,104 +225,17 @@ const oe = new qe(15, window.innerWidth / window.innerHeight, 0.1, 1e3);
 oe.position.set(-23.705, 16.498, -19.656);
 oe.lookAt(0.6, 0.98, 0);
 
-let le = document.getElementById("scroll-styles");
-if (!le) {
-    le = document.createElement("style");
-    le.id = "scroll-styles";
-    document.head.appendChild(le);
-}
-le.textContent = ``; 
-
+// Injeção limpa no seu canvas do Webflow
 let Y = document.getElementById("connect-drone");
-if (!Y) {
-    Y = document.createElement("div");
-    Y.id = "connect-drone";
-    document.body.appendChild(Y);
+if (Y) {
+    Y.innerHTML = "";
+    Y.appendChild(x.domElement);
 }
-Y.innerHTML = "";
-Y.appendChild(x.domElement);
 
-const Me = document.createElement("div");
-Me.id = "night-tint";
-Me.style.cssText = "position:absolute;inset:0;background:#5C7EAD;opacity:0;pointer-events:none;";
-Y.appendChild(Me);
-
-let ne = document.getElementById("hero-section");
-if (!ne) {
-    ne = document.createElement("div"); ne.id = "hero-section";
-    const t = document.createElement("div"); t.id = "hero-text";
-    ["Connecting", "the world"].forEach(i => {
-        const n = document.createElement("div");
-        i.split("").forEach(o => {
-            if (o === " ") n.appendChild(document.createTextNode(" "));
-            else {
-                const e = document.createElement("span"); e.className = "clip-wrap";
-                const r = document.createElement("span"); r.className = "clip-char";
-                r.textContent = o; e.appendChild(r); n.appendChild(e);
-            }
-        });
-        t.appendChild(n);
-    });
-    ne.appendChild(t); document.body.appendChild(ne);
-}
+// Oculta inicialmente as letras/textos para que o GSAP as revele na rolagem
+// Lembre-se de adicionar a classe "clip-char" nas letras do Webflow
 F.set("#hero-section .clip-char", { yPercent: 110 });
-
-let ie = document.getElementById("scroll-spacer");
-if (!ie) {
-    ie = document.createElement("div"); ie.id = "scroll-spacer";
-    ie.style.cssText = "position: relative; z-index: -1; height: 666vh; pointer-events: none;";
-    document.body.appendChild(ie);
-}
-
-let X = document.getElementById("benefits-row");
-if (!X) {
-    X = document.createElement("div"); X.id = "benefits-row";
-    const t = document.createElement("div"); t.className = "benefits-cards"; X.appendChild(t);
-    [{ title: "Latency", desc: "Apollo delivers high speed data with latency between 5 and 10 ms, ideal for tactical applications that require a real time link between detection and action." }, { title: "Coverage duration", desc: "Our platform provides a 24/7 fixed presence over the mission area, ensuring that the chain of custody is never broken." }, { title: "Coverage area", desc: "Apollo delivers dedicated monitoring over a 7,500 km² area, allowing for regional oversight with an unparalleled level of resolution." }].forEach(n => {
-        const o = document.createElement("div"); o.className = "benefit-card";
-        const e = document.createElement("div"); e.className = "benefit-title";
-        n.title.split("").forEach(s => {
-            if (s === " ") e.appendChild(document.createTextNode(" "));
-            else {
-                const a = document.createElement("span"); a.className = "clip-wrap";
-                const c = document.createElement("span"); c.className = "clip-char";
-                c.textContent = s; a.appendChild(c); e.appendChild(a);
-            }
-        });
-        const r = document.createElement("div"); r.className = "benefit-desc"; r.textContent = n.desc;
-        o.appendChild(e); o.appendChild(r); t.appendChild(o);
-    });
-    document.body.appendChild(X);
-}
-
-let Z = document.getElementById("benefits-row-2");
-if (!Z) {
-    Z = document.createElement("div"); Z.id = "benefits-row-2";
-    const t = document.createElement("div"); t.className = "benefits-cards"; Z.appendChild(t);
-    [{ title: "High bandwidth", desc: "Our system supports high bandwidth signals delivered direct to device for phones and radios, simplifying the communications log in remote or contested environments." }, { title: "Vehicle life", desc: "Apollo is designed to be fully reusable, ensuring long vehicle life and allowing rapid hardware updates and sensor swaps to keep the platform at the cutting edge." }, { title: "Altitude", desc: "Apollo sits at 20 km, well above commercial weather and standard atmospheric turbulence; the ideal environment for consistent sensor performance and optimal signal propagation." }].forEach(n => {
-        const o = document.createElement("div"); o.className = "benefit-card";
-        const e = document.createElement("div"); e.className = "benefit-title";
-        n.title.split("").forEach(s => {
-            if (s === " ") e.appendChild(document.createTextNode(" "));
-            else {
-                const a = document.createElement("span"); a.className = "clip-wrap";
-                const c = document.createElement("span"); c.className = "clip-char";
-                c.textContent = s; a.appendChild(c); e.appendChild(a);
-            }
-        });
-        const r = document.createElement("div"); r.className = "benefit-desc"; r.textContent = n.desc;
-        o.appendChild(e); o.appendChild(r); t.appendChild(o);
-    });
-    document.body.appendChild(Z);
-}
 F.set(".benefit-card .clip-char", { yPercent: 110 });
-
-let q = document.getElementById("scroll-divider");
-if (!q) {
-    q = document.createElement("div"); q.id = "scroll-divider";
-    const t = document.createElement("div"); t.id = "scroll-progress";
-    q.appendChild(t); document.body.appendChild(q);
-}
 
 const j = new Rt(C, x.domElement);
 j.target.set(0.6, 0.98, 0); j.enableDamping = true; j.dampingFactor = 0.05; j.enableZoom = false; j.update();
@@ -341,10 +254,13 @@ Qe(); S.add(I);
 const $ = new ut(16777215, 0, 50);
 $.position.set(0, 3, 5); S.add($);
 
-const Re = "/", Se = Re.endsWith("/") ? Re : `${Re}/`;
-const Ot = new URL(`${Se}env/green-512.hdr`, window.location.href).toString();
-const _t = new URL(`${Se}models/apollo-draco.glb`, window.location.href).toString();
-const Wt = new URL(`${Se}bg/vienna-mountains.webp`, window.location.href).toString();
+// Rotas absolutas do seu Githack para evitar bloqueios no Webflow
+const Ot = "https://raw.githack.com/augustondreis/icarus-connect/main/env/green-512.hdr";
+const _t = "https://raw.githack.com/augustondreis/icarus-connect/main/models/apollo-draco.glb";
+const Wt = "https://raw.githack.com/augustondreis/icarus-connect/main/bg/vienna-mountains.webp";
+const Ht = "https://raw.githack.com/augustondreis/icarus-connect/main/bg/night.jpg";
+const cloudUrl = "https://raw.githack.com/augustondreis/icarus-connect/main/bg/cloud03-7.webp";
+
 const Te = { extraScale: 16, rotation: new be(-Math.PI / 2, 0, 0) };
 
 const et = new gt(x);
@@ -364,42 +280,9 @@ new Le().load(Wt, t => {
     N.uniforms.uImageAspect.value = t.image.width / t.image.height;
 });
 
-const Ht = new URL(`${Se}bg/night.jpg`, window.location.href).toString();
 new Le().load(Ht, t => {
     t.minFilter = D; t.magFilter = D; t.generateMipmaps = false; t.wrapS = te; t.wrapT = te;
     N.uniforms.tNightImage.value = t;
-});
-
-const B = document.createElement("button");
-B.id = "night-upload-btn";
-B.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Upload night image';
-document.body.appendChild(B);
-
-const G = document.createElement("input");
-G.type = "file"; G.accept = "image/*"; G.style.display = "none";
-document.body.appendChild(G);
-
-B.addEventListener("click", () => G.click());
-G.addEventListener("change", () => {
-    const t = G.files[0]; if (!t) return;
-    B.classList.add("loading");
-    B.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Loading…';
-    const i = new FileReader();
-    i.onload = n => {
-        const o = new Image();
-        o.onload = () => {
-            const e = new vt(o);
-            e.minFilter = D; e.magFilter = D; e.generateMipmaps = false; e.wrapS = te; e.wrapT = te; e.needsUpdate = true;
-            const r = N.uniforms.tNightImage.value;
-            N.uniforms.tNightImage.value = e;
-            if (r) r.dispose();
-            B.classList.remove("loading");
-            B.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Upload night image';
-        };
-        o.src = n.target.result;
-    };
-    i.readAsDataURL(t);
-    G.value = "";
 });
 
 const Ut = 0.7, Bt = 0.25, ve = new wt();
@@ -416,7 +299,7 @@ function qt(t, i, n, o, e, r) {
         l.position.set(i, n, o); ve.add(l); ze.push(l);
     });
 }
-qt("/bg/cloud03-7.webp", -12, -4, -8, 28, 14);
+qt(cloudUrl, -12, -4, -8, 28, 14);
 
 const Yt = new z(19.28, 16.29, 25.2);
 const tt = new Et();
@@ -533,12 +416,20 @@ window.addEventListener("scroll", () => {
 
     const i = Math.min(1, ce / Pe);
     
+    // Elementos que o seu Webflow precisa ter para as animações dispararem:
+    const X = document.getElementById("benefits-row");
+    const Z = document.getElementById("benefits-row-2");
+    const q = document.getElementById("scroll-divider");
+
     if (i >= 1 && !K) {
         K = true;
         F.to("#hero-section .clip-char", { yPercent: 0, duration: 0.7, stagger: 0.03, ease: "power3.out" });
-        F.to("#scroll-divider", { opacity: 1, duration: 0.6, ease: "power2.out" });
-        const n = document.getElementById("benefits-row");
-        if (n) { n.style.opacity = 1; re.val = true; re.cardRevealed[0] = true; const o = n.querySelector(".benefit-card"); if (o) ge(o); }
+        if(q) F.to(q, { opacity: 1, duration: 0.6, ease: "power2.out" });
+        if (X) { 
+            X.style.opacity = 1; re.val = true; re.cardRevealed[0] = true; 
+            const o = X.querySelector(".benefit-card"); 
+            if (o) ge(o); 
+        }
     }
     if (i < 1 && K) {
         K = false;
@@ -546,8 +437,7 @@ window.addEventListener("scroll", () => {
         F.to("#hero-section .clip-char", { yPercent: 110, duration: 0.4, ease: "power2.in" });
         if(q) F.to(q, { opacity: 0, duration: 0.4, ease: "power2.in" });
         re.val = false; re.cardRevealed = [false, false, false];
-        const n = document.getElementById("benefits-row");
-        if (n) F.to(n, { opacity: 0, duration: 0.4, ease: "power2.in", onComplete: () => { n.querySelectorAll(".benefit-card").forEach(o => st(o)); } });
+        if (X) F.to(X, { opacity: 0, duration: 0.4, ease: "power2.in", onComplete: () => { X.querySelectorAll(".benefit-card").forEach(o => st(o)); } });
     }
     if (K) {
         const n = Math.max(0, Math.min(1, (ce - Pe) / (1 - Pe)));
@@ -556,8 +446,8 @@ window.addEventListener("scroll", () => {
     }
     if (K && q) {
         q.style.opacity = 1;
-        const n = document.getElementById("scroll-progress");
-        if (n) n.style.width = `${Math.min(1, ce) * 100}%`;
+        const n_progress = document.getElementById("scroll-progress");
+        if(n_progress) n_progress.style.width = `${Math.min(1, ce) * 100}%`;
     }
 });
 
@@ -715,7 +605,10 @@ function lt() {
     S.environmentIntensity = 1 - 0.95 * n;
     I.intensity = 0.15 * n;
     x.domElement.style.filter = `grayscale(${n * 0.4})`;
-    Me.style.opacity = n * 0.15;
+    
+    // Anima a div night-tint se ela existir no seu Webflow
+    let Me = document.getElementById("night-tint");
+    if (Me) Me.style.opacity = n * 0.15;
     
     x.autoClear = true; x.render(Je, oe);
     x.autoClear = false; x.render(S, C);
