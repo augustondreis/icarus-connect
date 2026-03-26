@@ -232,8 +232,9 @@ if (Y) {
     Y.appendChild(x.domElement);
 }
 
-F.set("#hero-section .clip-char", { yPercent: 110 });
-F.set(".benefit-card .clip-char", { yPercent: 110 });
+// Ocultando avisos indesejados do GSAP passando Array ao invés de String
+F.set(document.querySelectorAll("#hero-section .clip-char"), { yPercent: 110 });
+F.set(document.querySelectorAll(".benefit-card .clip-char"), { yPercent: 110 });
 
 const j = new Rt(C, x.domElement);
 j.target.set(0.6, 0.98, 0); j.enableDamping = true; j.dampingFactor = 0.05; j.enableZoom = false; j.update();
@@ -252,12 +253,14 @@ Qe(); S.add(I);
 const $ = new ut(16777215, 0, 50);
 $.position.set(0, 3, 5); S.add($);
 
-// 🔴 LINKS CORRIGIDOS PARA A CDN DO JSDELIVR 🔴
-const Ot = "https://cdn.jsdelivr.net/gh/augustondreis/icarus-connect@main/env/green-512.hdr";
-const _t = "https://cdn.jsdelivr.net/gh/augustondreis/icarus-connect@main/models/apollo-draco.glb";
-const Wt = "https://cdn.jsdelivr.net/gh/augustondreis/icarus-connect@main/bg/vienna-mountains.webp";
-const Ht = "https://cdn.jsdelivr.net/gh/augustondreis/icarus-connect@main/bg/night.jpg";
-const cloudUrl = "https://cdn.jsdelivr.net/gh/augustondreis/icarus-connect@main/bg/cloud03-7.webp";
+// 🔴 LINKS CORRIGIDOS E BLINDADOS 🔴
+// O HDR e o Apollo agora puxam do seu repositório "icarus" original (onde sei que existem!)
+// As 3 imagens de fundo vão puxar da "raiz" do novo repositório icarus-connect
+const Ot = "https://cdn.jsdelivr.net/gh/augustondreis/icarus@main/green-512.hdr";
+const _t = "https://cdn.jsdelivr.net/gh/augustondreis/icarus@main/apollo-draco.glb";
+const Wt = "https://cdn.jsdelivr.net/gh/augustondreis/icarus-connect@main/vienna-mountains.webp";
+const Ht = "https://cdn.jsdelivr.net/gh/augustondreis/icarus-connect@main/night.jpg";
+const cloudUrl = "https://cdn.jsdelivr.net/gh/augustondreis/icarus-connect@main/cloud03-7.webp";
 
 const Te = { extraScale: 16, rotation: new be(-Math.PI / 2, 0, 0) };
 
@@ -393,7 +396,6 @@ function Ue(t, i, n, o, e, r, s, a) {
 
 const Jt = 0.08, Pe = 0.05;
 let K = false;
-const Qt = 0.1;
 let De = false, Be = null;
 
 window.addEventListener("scroll", () => {
@@ -420,7 +422,7 @@ window.addEventListener("scroll", () => {
 
     if (i >= 1 && !K) {
         K = true;
-        F.to("#hero-section .clip-char", { yPercent: 0, duration: 0.7, stagger: 0.03, ease: "power3.out" });
+        F.to(document.querySelectorAll("#hero-section .clip-char"), { yPercent: 0, duration: 0.7, stagger: 0.03, ease: "power3.out" });
         if(q) F.to(q, { opacity: 1, duration: 0.6, ease: "power2.out" });
         if (X) { 
             X.style.opacity = 1; re.val = true; re.cardRevealed[0] = true; 
@@ -430,8 +432,8 @@ window.addEventListener("scroll", () => {
     }
     if (i < 1 && K) {
         K = false;
-        F.killTweensOf("#hero-section .clip-char");
-        F.to("#hero-section .clip-char", { yPercent: 110, duration: 0.4, ease: "power2.in" });
+        F.killTweensOf(document.querySelectorAll("#hero-section .clip-char"));
+        F.to(document.querySelectorAll("#hero-section .clip-char"), { yPercent: 110, duration: 0.4, ease: "power2.in" });
         if(q) F.to(q, { opacity: 0, duration: 0.4, ease: "power2.in" });
         re.val = false; re.cardRevealed = [false, false, false];
         if (X) F.to(X, { opacity: 0, duration: 0.4, ease: "power2.in", onComplete: () => { X.querySelectorAll(".benefit-card").forEach(o => st(o)); } });
@@ -461,7 +463,6 @@ window.addEventListener("resize", () => {
     };
     let i = function () {
         const s = N.uniforms.uCenterDir.value, a = (r * 180 / Math.PI).toFixed(0);
-        console.log(`%c BG dome: centerDir=(${s.x.toFixed(3)}, ${s.y.toFixed(3)}, ${s.z.toFixed(3)})  hFov=${a}°  theta=${o.toFixed(3)}  phi=${e.toFixed(3)}`, "background: #222; color: #0f0; padding: 4px 8px; font-size: 13px;");
     };
     var o = -2.42, e = -0.35, r = Xe;
     t();
@@ -475,14 +476,7 @@ window.addEventListener("resize", () => {
 
 const H = { x: 0.5, y: 0, z: -3.5 }, Ie = { x: -2.5, y: 0, z: -4.5 }, T = { x: H.x, y: H.y, z: H.z }, we = { value: 0 }, V = { value: 0.5 };
 
-function Ge() {
-    const t = C.position, i = j.target, n = S.environmentRotation;
-    if (A) { A.position; A.rotation; A.scale.x / (Te.extraScale * (1.4 / 10)); }
-    console.log(`\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n  Camera pos:     (${t.x.toFixed(2)}, ${t.y.toFixed(2)}, ${t.z.toFixed(2)})\n  Look-at:        (${i.x.toFixed(2)}, ${i.y.toFixed(2)}, ${i.z.toFixed(2)})\n  Env rot:        (${Math.round(n.x * 180 / Math.PI)}°, ${Math.round(n.y * 180 / Math.PI)}°)\n  Exposure:       ${x.toneMappingExposure.toFixed(2)}\n  FOV:            ${C.fov.toFixed(1)}\n  Drone offset:   (${T.x.toFixed(2)}, ${T.y.toFixed(2)}, ${T.z.toFixed(2)})\n  Drone rotY:     ${(we.value * 180 / Math.PI).toFixed(1)}°\n  Drone scale:    ${V.value.toFixed(2)}x\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`);
-}
-
 window.addEventListener("keydown", t => {
-    if (t.key === "p") { Ge(); return; }
     const i = t.shiftKey ? 0.1 : 0.5, o = (t.shiftKey ? 1 : 10) * Math.PI / 180;
     let e = false;
     if (t.key === "a" || t.key === "A") { T.x -= i; e = true; }
@@ -508,60 +502,12 @@ window.addEventListener("keydown", t => {
     if (t.key === "i" || t.key === "I") { U = Math.max(0.1, U - s); r = true; }
     if (t.key === "k" || t.key === "K") { U = Math.min(Math.PI - 0.1, U + s); r = true; }
     
-    if (r) {
-        Qe(); const a = I.position;
-        console.log(`%c NIGHT LIGHT  θ=${(pe * 180 / Math.PI).toFixed(1)}°  φ=${(U * 180 / Math.PI).toFixed(1)}°  pos=(${a.x.toFixed(2)}, ${a.y.toFixed(2)}, ${a.z.toFixed(2)})`, "color: #A0B4CF; font-weight: bold");
-        e = true;
-    }
-    
-    if (e) {
-        if (t.key.startsWith("Arrow")) {
-            const a = S.environmentRotation;
-            console.log(`%c HDR env rotation: X=${Math.round(a.x * 180 / Math.PI)}°  Y=${Math.round(a.y * 180 / Math.PI)}°`, "color: #f0a; font-weight: bold");
-        }
-        Ge();
-    }
+    if (r) { Qe(); e = true; }
 });
 
-function Ve() {
-    const t = I.position, i = $.position, n = S.environmentRotation || new be(), o = Math.round(n.x * 180 / Math.PI), e = Math.round(n.y * 180 / Math.PI);
-    console.log(`\n━━━━━━━━━ LIGHTING ━━━━━━━━━\n  HDR env rotation:     X=${o}°  Y=${e}°\n  Env intensity:        ${(S.environmentIntensity ?? 1).toFixed(2)}\n  Hemi intensity:       ${de.intensity.toFixed(2)}\n  Dir light intensity:  ${I.intensity.toFixed(2)}\n  Dir light pos:        (${t.x.toFixed(1)}, ${t.y.toFixed(1)}, ${t.z.toFixed(1)})\n  Point light intensity: ${$.intensity.toFixed(2)}\n  Point light pos:      (${i.x.toFixed(1)}, ${i.y.toFixed(1)}, ${i.z.toFixed(1)})\n  Exposure:             ${x.toneMappingExposure.toFixed(2)}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`);
-}
-
-window.addEventListener("keydown", t => {
-    if (t.altKey || t.ctrlKey || t.metaKey) return;
-    const i = t.key, n = 1; let o = false;
-    if (t.shiftKey) {
-        if (i === "!") { I.position.x -= n; o = true; }
-        if (i === "@") { I.position.x += n; o = true; }
-        if (i === "#") { I.position.y -= n; o = true; }
-        if (i === "$") { I.position.y += n; o = true; }
-        if (i === "%") { I.position.z -= n; o = true; }
-        if (i === "^") { I.position.z += n; o = true; }
-        if (i === "&") { $.position.x -= n; o = true; }
-        if (i === "*") { $.position.x += n; o = true; }
-        if (i === "(") { $.position.y -= n; o = true; }
-        if (i === ")") { $.position.y += n; o = true; }
-    } else {
-        if (i === "1") { de.intensity = Math.max(0, de.intensity - 0.1); o = true; }
-        if (i === "2") { de.intensity += 0.1; o = true; }
-        if (i === "3") { I.intensity = Math.max(0, I.intensity - 0.1); o = true; }
-        if (i === "4") { I.intensity += 0.1; o = true; }
-        if (i === "5") { $.intensity = Math.max(0, $.intensity - 0.1); o = true; }
-        if (i === "6") { $.intensity += 0.1; o = true; }
-        if (i === "7") { x.toneMappingExposure = Math.max(0, x.toneMappingExposure - 0.1); o = true; }
-        if (i === "8") { x.toneMappingExposure += 0.1; o = true; }
-        if (i === "9") { S.environmentIntensity = Math.max(0, (S.environmentIntensity ?? 1) - 0.1); o = true; }
-        if (i === "0") { S.environmentIntensity = (S.environmentIntensity ?? 1) + 0.1; o = true; }
-        if (i === ";") { Ve(); return; }
-    }
-    if (o) Ve();
-});
 
 function lt() {
     _e.getDelta(); const t = _e.elapsedTime;
-    
-    // BLOCO DE AUTO-SCROLL REMOVIDO DAQUI
     
     W += (ce - W) * Jt;
     
